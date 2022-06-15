@@ -14,3 +14,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+@font-face {
+  font-family: "VPPixel-Simplified";
+  src: url("/font/VPPixel-Simplified/VPPixel-Simplified.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

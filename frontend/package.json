@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^2.9.1",
     "@loadable/babel-plugin": "^5.13.2",
     "@loadable/component": "^5.15.2",
+    "@radix-ui/react-dialog": "^0.1.7",
     "@svgr/webpack": "^6.2.1",
     "babel-loader": "^8.2.5",
     "ethers": "^5.6.8",
@@ -21,6 +22,7 @@
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-hook-form": "^7.32.1",
+    "react-loader-spinner": "^5.1.5",
     "react-toastify": "^9.0.4",
     "yup": "^0.32.11"
   },

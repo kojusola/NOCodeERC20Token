@@ -1,15 +1,20 @@
 /** @jsxImportSource @compiled/react */
 import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
 import Header from "../components/header";
-import Container from "../components/container";
+import TokensList from "../components/tokensList";
+import { Circles } from "react-loader-spinner";
+import useTokens from "../utils/web3/tokens";
 
-export default function Home() {
+export default function Tokens() {
   return (
     <div
       css={{
         width: "100%",
         minHeight: "100vh",
         backgroundColor: "#000000",
+        position: "relative",
       }}
     >
       <Head>
@@ -34,8 +39,13 @@ export default function Home() {
         }}
       >
         <Header />
-        <div>
-          <Container />
+        <div
+          css={{
+            paddingTop: "100px",
+          }}
+        >
+          <TokensList />
+          {/* <Circles color="#917EFF" height={80} width={80} /> */}
         </div>
       </div>
     </div>

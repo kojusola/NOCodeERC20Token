@@ -1,36 +1,144 @@
 /** @jsxImportSource @compiled/react */
 import { useEffect } from "react";
-import useConnectWallet from "../utils/connectWallet";
+import useConnectWallet from "../utils/web3/connectWallet";
 import { useAppContext } from "../context/state";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import CollectionSVG from "../images/collection.svg";
 
 export default function Header() {
-  const { connected, account, setAccount, setConnected } = useAppContext();
-  const { handleAccountChanged, handleChainChanged, eagerConnect } =
-    useConnectWallet();
-  const connectWallet = async () => {
-    if (!!window.ethereum || !!window.web3) {
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-      eagerConnect();
-    } else {
-      alert("please use an etherum enabled browser");
-    }
-  };
+  const { connected, account, setAccount, setConnected, setMetamaskPresent } =
+    useAppContext();
+  const {
+    handleAccountChanged,
+    handleChainChanged,
+    eagerConnect,
+    disConnectWallet,
+    connectWallet,
+  } = useConnectWallet();
+
   useEffect(() => {
-    if (!window.ethereum) return;
+    if (!window.ethereum) {
+      setMetamaskPresent(false);
+      return;
+    }
     const localAccount = localStorage.getItem("myAddress");
     if (localAccount) {
-      setAccount(localAccount);
-      setConnected(true);
+      eagerConnect();
     }
     window.ethereum.on("connect", eagerConnect);
     window.ethereum.on("accountsChanged", handleAccountChanged);
     window.ethereum.on("chainChanged", handleChainChanged);
   }, [eagerConnect, handleAccountChanged, handleChainChanged]);
+
   return (
-    <div>
-      <button onClick={connectWallet}>connect</button>
-      <div css={{ color: "white" }}>{connected ? "Yes" : "no"}</div>
-      <div css={{ color: "white" }}>{account}</div>
+    <div css={{ width: "100%" }}>
+      {/* <ToastContainer /> */}
+      <div
+        css={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between",
+          padding: "20px 0",
+          alignItems: "center",
+        }}
+      >
+        <a href="/">
+          <p
+            css={{
+              fontFamily: "VPPixel-Simplified",
+              fontSize: "30px",
+              lineHeight: "35px",
+              color: "#FFFFFF",
+              margin: "0",
+              "@media (max-width: 520px)": {
+                fontSize: "16px",
+                lineHeight: "22px",
+              },
+            }}
+          >
+            NoCodeERC20
+          </p>
+        </a>
+        <div css={{ display: "flex", alignItems: "center" }}>
+          <a href="/tokens">
+            <CollectionSVG
+              css={{
+                marginRight: "20px",
+                width: "40px",
+                height: "40px",
+                color: "white",
+                "&:hover": { color: "#866eff", cursor: "pointer" },
+                "@media (max-width: 520px)": {
+                  width: "20px",
+                  height: "20px",
+                },
+              }}
+            />
+          </a>
+          {connected ? (
+            <button
+              onClick={disConnectWallet}
+              css={{
+                fontSize: "18px",
+                lineHeight: "22px",
+                flexShrink: "0",
+                color: "#fff",
+                padding: "10px 40px",
+                backgroundColor: "#917EFF",
+                height: "60px",
+                borderRadius: "10px",
+                border: "1px solid #866eff",
+                "@media (max-width: 520px)": {
+                  fontSize: "14px",
+                  lineHeight: "18px",
+                  height: "40px",
+                  padding: "10px 20px",
+                },
+                transition: "all 0.3s",
+                "&:hover": {
+                  backgroundColor: "#FFFFFF",
+                  cursor: "pointer",
+                  border: "1px solid #866eff",
+                  color: "#917EFF",
+                },
+              }}
+            >
+              Disconnect Wallet
+            </button>
+          ) : (
+            <button
+              onClick={connectWallet}
+              css={{
+                fontSize: "18px",
+                lineHeight: "22px",
+                color: "#fff",
+                padding: "10px 40px",
+                backgroundColor: "#917EFF",
+                height: "60px",
+                borderRadius: "10px",
+                flexShrink: "0",
+                border: "none",
+                "@media (max-width: 520px)": {
+                  fontSize: "14px",
+                  lineHeight: "18px",
+                  height: "40px",
+                  padding: "10px 20px",
+                },
+                transition: "all 0.3s",
+                "&:hover": {
+                  backgroundColor: "#FFFFFF",
+                  cursor: "pointer",
+                  border: "1px solid #866eff",
+                  color: "#917EFF",
+                },
+              }}
+            >
+              Connect Wallet
+            </button>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

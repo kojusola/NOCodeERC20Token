@@ -5,25 +5,22 @@ const AppContext = createContext();
 
 export function AppWrapper({ children }) {
   const [connected, setConnected] = useState(false);
-  const [provider, setProvider] = useState();
-  const [library, setLibrary] = useState();
   const [account, setAccount] = useState();
   const [network, setNetwork] = useState();
-  const [signer, setSigner] = useState();
+  const [metamaskPresent, setMetamaskPresent] = useState(true);
+  const [allTokens, setAllTokens] = useState();
 
   let sharedState = {
     connected,
     setConnected,
-    provider,
-    setProvider,
-    library,
-    setLibrary,
     account,
     setAccount,
     network,
     setNetwork,
-    signer,
-    setSigner,
+    metamaskPresent,
+    setMetamaskPresent,
+    allTokens,
+    setAllTokens,
   };
 
   return (
