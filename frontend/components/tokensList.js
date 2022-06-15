@@ -23,7 +23,7 @@ export default function TokenList() {
       setLoading(false);
     };
     getAllData();
-  }, [setLoading, getAllTokens]);
+  }, []);
 
   return (
     <div css={{ width: "100%", maxWidth: "1200px", margin: "auto" }}>

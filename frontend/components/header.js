@@ -29,12 +29,7 @@ export default function Header() {
     window.ethereum.on("connect", eagerConnect);
     window.ethereum.on("accountsChanged", handleAccountChanged);
     window.ethereum.on("chainChanged", handleChainChanged);
-  }, [
-    eagerConnect,
-    handleAccountChanged,
-    handleChainChanged,
-    setMetamaskPresent,
-  ]);
+  }, [eagerConnect, handleAccountChanged, handleChainChanged]);
 
   return (
     <div css={{ width: "100%" }}>
@@ -48,38 +43,42 @@ export default function Header() {
           alignItems: "center",
         }}
       >
-        <Link href="/">
-          <p
-            css={{
-              fontFamily: "VPPixel-Simplified",
-              fontSize: "30px",
-              lineHeight: "35px",
-              color: "#FFFFFF",
-              margin: "0",
-              "@media (max-width: 520px)": {
-                fontSize: "16px",
-                lineHeight: "22px",
-              },
-            }}
-          >
-            NoCodeERC20
-          </p>
-        </Link>
-        <div css={{ display: "flex", alignItems: "center" }}>
-          <Link href="/tokens">
-            <CollectionSVG
+        <Link href="/" passHref>
+          <a>
+            <p
               css={{
-                marginRight: "20px",
-                width: "40px",
-                height: "40px",
-                color: "white",
-                "&:hover": { color: "#866eff", cursor: "pointer" },
+                fontFamily: "VPPixel-Simplified",
+                fontSize: "30px",
+                lineHeight: "35px",
+                color: "#FFFFFF",
+                margin: "0",
                 "@media (max-width: 520px)": {
-                  width: "20px",
-                  height: "20px",
+                  fontSize: "16px",
+                  lineHeight: "22px",
                 },
               }}
-            />
+            >
+              NoCodeERC20
+            </p>
+          </a>
+        </Link>
+        <div css={{ display: "flex", alignItems: "center" }}>
+          <Link href="/tokens" passHref>
+            <a>
+              <CollectionSVG
+                css={{
+                  marginRight: "20px",
+                  width: "40px",
+                  height: "40px",
+                  color: "white",
+                  "&:hover": { color: "#866eff", cursor: "pointer" },
+                  "@media (max-width: 520px)": {
+                    width: "20px",
+                    height: "20px",
+                  },
+                }}
+              />
+            </a>
           </Link>
           {connected ? (
             <button
