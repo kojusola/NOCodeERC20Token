@@ -1,13 +1,8 @@
 /** @jsxImportSource @compiled/react */
-import { useEffect, useState } from "react";
-import useConnectWallet from "../utils/web3/connectWallet";
-import { useAppContext } from "../context/state";
-import { ethers } from "ethers";
+import { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import { toast, ToastContainer } from "react-toastify";
-import CollectionSVG from "../images/collection.svg";
-import { addressShortner } from "../utils/helper";
-import CancelSVG from "../images/cancel.svg";
+import { toast } from "react-toastify";
+import { ethers } from "ethers";
 import {
   Modal,
   ModalTrigger,
@@ -44,7 +39,6 @@ export default function TokenTransfer({ tokenName, tokenAddress }) {
     setLoading(true);
     await transferTokens(data.address, data.amount, tokenAddress);
     setLoading(false);
-    router.reload(window.location.pathname);
     return false;
   };
 
@@ -88,7 +82,10 @@ export default function TokenTransfer({ tokenName, tokenAddress }) {
         <ModalContent>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            css={{ width: "100%", justifyContent: "center" }}
+            css={{
+              width: "100%",
+              justifyContent: "center",
+            }}
           >
             <p
               css={{
@@ -202,22 +199,24 @@ export default function TokenTransfer({ tokenName, tokenAddress }) {
           <ModalCloseButton />
         </ModalContent>
       </Modal>
-      <div
-        css={{
-          width: "100%",
-          height: "100%",
-          backgroundColor: "black",
-          opacity: "0.5",
-          position: "absolute",
-          top: "0",
-          right: "0",
-          display: loading ? "flex" : "none",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Circles color="#917EFF" height={80} width={80} />
-      </div>
+      {loading && (
+        <div
+          css={{
+            width: "100%",
+            height: "100%",
+            backgroundColor: "black",
+            opacity: "0.5",
+            position: "absolute",
+            top: "0",
+            right: "0",
+            display: loading ? "flex" : "none",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Circles color="#917EFF" height={80} width={80} />
+        </div>
+      )}
     </div>
   );
 }

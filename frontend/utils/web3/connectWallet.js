@@ -55,15 +55,16 @@ export default function useConnectWallet() {
     setAccount(accounts[0]);
     localStorage.setItem("myAddress", accounts[0]);
     setConnected(true);
-    toast.success("Connected to wallet");
+    // toast.success("Connected to wallet");
   }, []);
 
   const connectWallet = async () => {
     if (!!window.ethereum || !!window.web3) {
       await window.ethereum.request({ method: "eth_requestAccounts" });
       eagerConnect();
+      toast.success("Connected to wallet");
     } else {
-      alert("please use an etherum enabled browser");
+      toast.error("please use an ethereum enabled browser");
     }
   };
   const disConnectWallet = async () => {

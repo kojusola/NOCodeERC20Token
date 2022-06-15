@@ -7,8 +7,7 @@ import { ToastContainer } from "react-toastify";
 import CollectionSVG from "../images/collection.svg";
 
 export default function Header() {
-  const { connected, account, setAccount, setConnected, setMetamaskPresent } =
-    useAppContext();
+  const { connected, setMetamaskPresent } = useAppContext();
   const {
     handleAccountChanged,
     handleChainChanged,
@@ -33,7 +32,7 @@ export default function Header() {
 
   return (
     <div css={{ width: "100%" }}>
-      {/* <ToastContainer /> */}
+      <ToastContainer />
       <div
         css={{
           width: "100%",

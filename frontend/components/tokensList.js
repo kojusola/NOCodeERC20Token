@@ -16,16 +16,6 @@ export default function TokenList() {
   const { connected, allTokens } = useAppContext();
   const { getAllTokens } = useTokens();
 
-  const dummyData = [
-    {
-      name: "Token 1",
-      address: "0x0000000000000000000000000000000000000000",
-    },
-    {
-      name: "Token 1",
-      address: "0x0000000000000000000000000000000000000000",
-    },
-  ];
   const getAllData = async () => {
     setLoading(true);
     await getAllTokens();

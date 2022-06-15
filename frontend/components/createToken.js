@@ -1,18 +1,14 @@
 /** @jsxImportSource @compiled/react */
 import { useState } from "react";
-import { useAppContext } from "../context/state";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import useTokens from "../utils/web3/tokens";
 import { Circles } from "react-loader-spinner";
-import { toast } from "react-toastify";
 
 export default function CreateTokens() {
   const [loading, setLoading] = useState(false);
 
-  const { connected, account, setAccount, setConnected, metamaskPresent } =
-    useAppContext();
   const { createTokens } = useTokens();
 
   // form validation rules
@@ -27,14 +23,12 @@ export default function CreateTokens() {
   const { register, handleSubmit, reset, formState } = useForm(formOptions);
   const { errors } = formState;
 
-  function onSubmit(data) {
-    // display form data on success
-    // alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
+  const onSubmit = async (data) => {
     setLoading(true);
-    createTokens(data.tokenName, data.tokenSymbol, data.totalSupply);
+    await createTokens(data.tokenName, data.tokenSymbol, data.totalSupply);
     setLoading(false);
     return false;
-  }
+  };
   return (
     <div>
       <form
@@ -186,21 +180,23 @@ export default function CreateTokens() {
           </button>
         </div>
       </form>
-      <div
-        css={{
-          width: "100%",
-          height: "100%",
-          backgroundColor: "black",
-          opacity: "0.5",
-          position: "absolute",
-          top: "0",
-          display: loading ? "flex" : "none",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Circles color="#917EFF" height={80} width={80} />
-      </div>
+      {loading && (
+        <div
+          css={{
+            width: "100%",
+            height: "100%",
+            backgroundColor: "black",
+            opacity: "0.5",
+            position: "absolute",
+            top: "0",
+            display: loading ? "flex" : "none",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Circles color="#917EFF" height={80} width={80} />
+        </div>
+      )}
     </div>
   );
 }
