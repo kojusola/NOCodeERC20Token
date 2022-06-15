@@ -39,6 +39,7 @@ export default function TokenTransfer({ tokenName, tokenAddress }) {
     setLoading(true);
     await transferTokens(data.address, data.amount, tokenAddress);
     setLoading(false);
+    reset();
     return false;
   };
 

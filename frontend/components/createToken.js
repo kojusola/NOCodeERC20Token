@@ -27,6 +27,7 @@ export default function CreateTokens() {
     setLoading(true);
     await createTokens(data.tokenName, data.tokenSymbol, data.totalSupply);
     setLoading(false);
+    reset();
     return false;
   };
   return (
