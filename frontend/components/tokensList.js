@@ -16,16 +16,15 @@ export default function TokenList() {
   const { connected, allTokens } = useAppContext();
   const { getAllTokens } = useTokens();
 
-  const getAllData = async () => {
-    setLoading(true);
-    await getAllTokens();
-    console.log(allTokens?.length);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const getAllData = async () => {
+      setLoading(true);
+      await getAllTokens();
+      setLoading(false);
+    };
     getAllData();
-  }, []);
+  }, [setLoading, getAllTokens]);
+
   return (
     <div css={{ width: "100%", maxWidth: "1200px", margin: "auto" }}>
       {connected ? (
@@ -172,7 +171,7 @@ export default function TokenList() {
                 lineHeight: "55px",
                 color: "#FFFFFF",
                 margin: "0",
-                marginTop: "50",
+                marginTop: "50px",
                 textAlign: "center",
                 "@media (max-width: 500px)": {
                   fontSize: "25px",

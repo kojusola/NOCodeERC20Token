@@ -1,5 +1,6 @@
 /** @jsxImportSource @compiled/react */
 import { useEffect } from "react";
+import Link from "next/link";
 import useConnectWallet from "../utils/web3/connectWallet";
 import { useAppContext } from "../context/state";
 import "react-toastify/dist/ReactToastify.css";
@@ -28,7 +29,12 @@ export default function Header() {
     window.ethereum.on("connect", eagerConnect);
     window.ethereum.on("accountsChanged", handleAccountChanged);
     window.ethereum.on("chainChanged", handleChainChanged);
-  }, [eagerConnect, handleAccountChanged, handleChainChanged]);
+  }, [
+    eagerConnect,
+    handleAccountChanged,
+    handleChainChanged,
+    setMetamaskPresent,
+  ]);
 
   return (
     <div css={{ width: "100%" }}>
@@ -42,7 +48,7 @@ export default function Header() {
           alignItems: "center",
         }}
       >
-        <a href="/">
+        <Link href="/">
           <p
             css={{
               fontFamily: "VPPixel-Simplified",
@@ -58,9 +64,9 @@ export default function Header() {
           >
             NoCodeERC20
           </p>
-        </a>
+        </Link>
         <div css={{ display: "flex", alignItems: "center" }}>
-          <a href="/tokens">
+          <Link href="/tokens">
             <CollectionSVG
               css={{
                 marginRight: "20px",
@@ -74,7 +80,7 @@ export default function Header() {
                 },
               }}
             />
-          </a>
+          </Link>
           {connected ? (
             <button
               onClick={disConnectWallet}
