@@ -32,14 +32,4 @@ contract ERC20Factory {
         return tokens;
     }
 
-      function transferTokens( address to_, uint256 amount_, address tokenAddress_ ) external returns(bool)
-    {
-        ERC20Token erc20 = ERC20Token(tokenAddress_);
-        // console.log(erc20.balanceOf(msg.sender));
-        erc20.approve(to_, amount_);
-        // console.log(erc20.approve(to_, amount_));
-        erc20.transferFrom( msg.sender, to_,  amount_);
-        emit TokenTransfer( msg.sender,  to_, amount_);
-        return true;
-    }
 }
